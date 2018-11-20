@@ -35,23 +35,23 @@ class main:
         password = ""
 
         while True:
-            if self.cad.switches[0] == 1:
+            if self.cad.switches[0].value == 1:
                 password = password + "1"
                 self.cad.lcd.write("*")
 
-            elif self.cad.switches[1] == 1:
+            elif self.cad.switches[1].value == 1:
                 password = password + "2"
                 self.cad.lcd.write("*")
 
-            elif self.cad.switches[2] == 1:
+            elif self.cad.switches[2].value == 1:
                 password = password + "3"
                 self.cad.lcd.write("*")
 
-            elif self.cad.switches[3] == 1:
+            elif self.cad.switches[3].value == 1:
                 password = password + "4"
                 self.cad.lcd.write("*")
 
-            elif self.cad.switches[4] == 1:
+            elif self.cad.switches[4].value == 1:
                 break
 
             else:
