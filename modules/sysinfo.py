@@ -73,5 +73,7 @@ def start():
     cad.lcd.set_cursor(0, 1)
     cad.lcd.write("Button 4 to exit")
     ip = wait_for_ip()
-    if ip != None:
+    if ip == None:
+        pass
+    else:
         show_sysinfo()
