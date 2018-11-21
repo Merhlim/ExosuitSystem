@@ -22,19 +22,19 @@ class main:
     def run_cmd(cmd):
         return subprocess.check_output(cmd, shell=True).decode('utf-8')
 
-    def get_my_ip(main):
+    def get_my_ip():
         return main.run_cmd(main.GET_IP_CMD)[:-1]
 
-    def get_my_temp(main):
+    def get_my_temp():
         return main.run_cmd(main.GET_TEMP_CMD)[5:9]
 
-    def get_my_free_mem(main):
+    def get_my_free_mem():
         total_mem = float(main.run_cmd(main.TOTAL_MEM_CMD))
         used_mem = float(main.run_cmd(main.USED_MEM_CMD))
         mem_perc = used_mem / total_mem
         return "{:.1%}".format(mem_perc)
 
-    def wait_for_ip(main):
+    def wait_for_ip():
         main.ip = ""
         while len(main.ip) <= 0:
             sleep(1)
@@ -42,7 +42,7 @@ class main:
             if main.cad.switches[4].value == 1:
                 main.ip = None
 
-    def show_sysinfo(main):
+    def show_sysinfo():
         while True:
             main.cad.lcd.clear()
             main.cad.lcd.write("IP:{}\n".format(main.get_my_ip()))
@@ -57,7 +57,7 @@ class main:
                 main.cad.lcd.clear()
                 break
 
-    def start(main):
+    def start():
         main.cad.lcd.clear()
         main.cad.lcd.blink_off()
         main.cad.lcd.cursor_off()
