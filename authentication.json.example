@@ -1,0 +1,5 @@
+{
+  "Authentication": [
+    {"username":"<Your username>", "password":"<Hexdigested md5 password>"}
+  ]
+}

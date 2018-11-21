@@ -1,0 +1,5 @@
+{
+  "Applications": [
+    {"module":"sysinfo","displayname":"sysinfo","enabled":1}
+  ]
+}
