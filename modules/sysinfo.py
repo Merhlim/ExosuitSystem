@@ -3,6 +3,7 @@ import subprocess
 from time import sleep
 import pifacecad
 
+UPDATE_PERIOD = 5
 GET_IP_CMD = "hostname --all-ip-addresses"
 GET_TEMP_CMD = "/opt/vc/bin/vcgencmd measure_temp"
 TOTAL_MEM_CMD = "free | grep 'Mem' | awk '{print $2}'"
@@ -59,6 +60,7 @@ def show_sysinfo():
 
         cad.lcd.write_custom_bitmap(memory_symbol_index)
         cad.lcd.write(":"+get_my_free_mem())
+        sleep(UPDATE_PERIOD)
         if cad.switches[4].value == 1:
             cad.lcd.clear()
             break
