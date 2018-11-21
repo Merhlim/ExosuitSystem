@@ -9,8 +9,6 @@ GET_TEMP_CMD = "/opt/vc/bin/vcgencmd measure_temp"
 TOTAL_MEM_CMD = "free | grep 'Mem' | awk '{print $2}'"
 USED_MEM_CMD = "free | grep '\-\/+' | awk '{print $3}'"
 
-ip = ""
-
 cad = pifacecad.PiFaceCAD()
 
 temperature_symbol = pifacecad.LCDBitmap(
@@ -40,6 +38,7 @@ def get_my_free_mem():
 
 
 def wait_for_ip():
+    ip = ""
     while len(ip) <= 0:
         sleep(1)
         ip = get_my_ip()
@@ -73,6 +72,6 @@ def start():
     cad.lcd.write("Waiting for IP..")
     cad.lcd.set_cursor(0, 1)
     cad.lcd.write("Button 4 to exit")
-    wait_for_ip()
+    ip = wait_for_ip()
     if ip != None:
         show_sysinfo()
