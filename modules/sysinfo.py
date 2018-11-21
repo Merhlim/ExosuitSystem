@@ -22,51 +22,51 @@ class main:
     def run_cmd(cmd):
         return subprocess.check_output(cmd, shell=True).decode('utf-8')
 
-    def get_my_ip(self):
-        return self.run_cmd(self.GET_IP_CMD)[:-1]
+    def get_my_ip(main):
+        return main.run_cmd(main.GET_IP_CMD)[:-1]
 
-    def get_my_temp(self):
-        return self.run_cmd(self.GET_TEMP_CMD)[5:9]
+    def get_my_temp(main):
+        return main.run_cmd(main.GET_TEMP_CMD)[5:9]
 
-    def get_my_free_mem(self):
-        total_mem = float(self.run_cmd(self.TOTAL_MEM_CMD))
-        used_mem = float(self.run_cmd(self.USED_MEM_CMD))
+    def get_my_free_mem(main):
+        total_mem = float(main.run_cmd(main.TOTAL_MEM_CMD))
+        used_mem = float(main.run_cmd(main.USED_MEM_CMD))
         mem_perc = used_mem / total_mem
         return "{:.1%}".format(mem_perc)
 
-    def wait_for_ip(self):
-        self.ip = ""
-        while len(self.ip) <= 0:
+    def wait_for_ip(main):
+        main.ip = ""
+        while len(main.ip) <= 0:
             sleep(1)
-            self.ip = self.get_my_ip()
-            if self.cad.switches[4].value == 1:
-                self.ip = None
+            main.ip = main.get_my_ip()
+            if main.cad.switches[4].value == 1:
+                main.ip = None
 
-    def show_sysinfo(self):
+    def show_sysinfo(main):
         while True:
-            self.cad.lcd.clear()
-            self.cad.lcd.write("IP:{}\n".format(self.get_my_ip()))
+            main.cad.lcd.clear()
+            main.cad.lcd.write("IP:{}\n".format(main.get_my_ip()))
 
-            self.cad.lcd.write_custom_bitmap(self.temp_symbol_index)
-            self.cad.lcd.write(":{}C ".format(self.get_my_temp()))
+            main.cad.lcd.write_custom_bitmap(main.temp_symbol_index)
+            main.cad.lcd.write(":{}C ".format(main.get_my_temp()))
 
-            self.cad.lcd.write_custom_bitmap(self.memory_symbol_index)
-            self.cad.lcd.write(":{}".format(self.get_my_free_mem()))
-            self.sleep(self.UPDATE_INTERVAL)
-            if self.cad.switches[4].value == 1:
-                self.cad.lcd.clear()
+            main.cad.lcd.write_custom_bitmap(main.memory_symbol_index)
+            main.cad.lcd.write(":{}".format(main.get_my_free_mem()))
+            main.sleep(main.UPDATE_INTERVAL)
+            if main.cad.switches[4].value == 1:
+                main.cad.lcd.clear()
                 break
 
-    def start(self):
-        self.cad.lcd.clear()
-        self.cad.lcd.blink_off()
-        self.cad.lcd.cursor_off()
-        self.cad.lcd.store_custom_bitmap(self.temp_symbol_index, self.temperature_symbol)
-        self.cad.lcd.store_custom_bitmap(self.memory_symbol_index, self.memory_symbol)
-        self.cad.lcd.backlight_on()
-        self.cad.lcd.write("Waiting for IP..")
-        self.cad.lcd.set_cursor(0,1)
-        self.cad.lcd.write("Button 4 to exit")
-        self.wait_for_ip()
-        if self.ip != None:
-            self.show_sysinfo()
+    def start(main):
+        main.cad.lcd.clear()
+        main.cad.lcd.blink_off()
+        main.cad.lcd.cursor_off()
+        main.cad.lcd.store_custom_bitmap(main.temp_symbol_index, main.temperature_symbol)
+        main.cad.lcd.store_custom_bitmap(main.memory_symbol_index, main.memory_symbol)
+        main.cad.lcd.backlight_on()
+        main.cad.lcd.write("Waiting for IP..")
+        main.cad.lcd.set_cursor(0,1)
+        main.cad.lcd.write("Button 4 to exit")
+        main.wait_for_ip()
+        if main.ip != None:
+            main.show_sysinfo()
