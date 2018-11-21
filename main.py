@@ -22,7 +22,8 @@ class main:
             #os.system("reboot")
             exit()
 
-        self.run_module("sysinfo")
+
+
 
     def scan_data_files(self):
         with open("authentication.json", "r") as authfile:
