@@ -7,7 +7,7 @@ UPDATE_INTERVAL = 60 * 5  # 5 mins
 GET_IP_CMD = "hostname --all-ip-addresses"
 GET_TEMP_CMD = "/opt/vc/bin/vcgencmd measure_temp"
 TOTAL_MEM_CMD = "free | grep 'Mem' | awk '{print $2}'"
-USED_MEM_CMD = "free | grep '\-\/+' | awk '{print $3}'"
+USED_MEM_CMD = "free | grep 'Mem' | awk '{print $3}'"
 
 cad = pifacecad.PiFaceCAD()
 
