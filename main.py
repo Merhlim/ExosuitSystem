@@ -17,7 +17,12 @@ class main:
 
         sleep(2)
 
-        self.authenticate("Enter password")
+        if self.authenticate("Enter password") == False:
+            self.cad.lcd.clear()
+            self.cad.lcd.set_cursor(0,0)
+            self.cad.lcd.write("Access Denied")
+            #os.system("reboot")
+            exit()
 
     def bootup(self):
         self.cad.lcd.clear()
@@ -38,18 +43,22 @@ class main:
             if self.cad.switches[0].value == 1:
                 password = password + "1"
                 self.cad.lcd.write("*")
+                sleep(0.2)
 
             elif self.cad.switches[1].value == 1:
                 password = password + "2"
                 self.cad.lcd.write("*")
+                sleep(0.2)
 
             elif self.cad.switches[2].value == 1:
                 password = password + "3"
                 self.cad.lcd.write("*")
+                sleep(0.2)
 
             elif self.cad.switches[3].value == 1:
                 password = password + "4"
                 self.cad.lcd.write("*")
+                sleep(0.2)
 
             elif self.cad.switches[4].value == 1:
                 break
@@ -69,6 +78,8 @@ class main:
                 self.cad.lcd.set_cursor(0,1)
                 self.cad.lcd.write(self.user)
                 sleep(2)
+                return True
+        return False
 
 
 if __name__ == "__main__":
