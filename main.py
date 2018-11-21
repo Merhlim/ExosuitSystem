@@ -32,7 +32,7 @@ class main:
 
     def run_module(self,modulename):
         module = importlib.import_module("modules."+modulename)
-        module.main.start(module.main)
+        module.start()
         self.reset_cad_display()
 
     def reset_cad_display(self):
