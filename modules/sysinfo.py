@@ -4,7 +4,7 @@ from time import sleep
 import pifacecad
 
 UPDATE_PERIOD = 5
-GET_IP_CMD = "hostname --all-ip-addresses"
+GET_IP_CMD = "hostname --all-ip-addresses | awk '{print $1}'"
 GET_TEMP_CMD = "/opt/vc/bin/vcgencmd measure_temp"
 TOTAL_MEM_CMD = "free | grep 'Mem' | awk '{print $2}'"
 USED_MEM_CMD = "free | grep 'Mem' | awk '{print $3}'"
@@ -50,20 +50,26 @@ def wait_for_ip():
 
 
 def show_sysinfo():
+    tick = 0.0
     while True:
-        cad.lcd.clear()
-        cad.lcd.set_cursor(0,0)
-        cad.lcd.write("IP:"+get_my_ip())
-        cad.lcd.set_cursor(0,1)
-        cad.lcd.write_custom_bitmap(temp_symbol_index)
-        cad.lcd.write(":"+str(get_my_temp())+"C")
+        if tick == 5.0:
+            cad.lcd.clear()
+            cad.lcd.set_cursor(0, 0)
+            cad.lcd.write("IP:" + get_my_ip())
+            cad.lcd.set_cursor(0, 1)
+            cad.lcd.write_custom_bitmap(temp_symbol_index)
+            cad.lcd.write(":" + str(get_my_temp()) + "C ")
 
-        cad.lcd.write_custom_bitmap(memory_symbol_index)
-        cad.lcd.write(":"+get_my_free_mem())
-        sleep(UPDATE_PERIOD)
+            cad.lcd.write_custom_bitmap(memory_symbol_index)
+            cad.lcd.write(":" + get_my_free_mem())
+            tick = 0.0
+
         if cad.switches[4].value == 1:
             cad.lcd.clear()
             break
+
+        sleep(0.5)
+        tick = tick + 0.5
 
 
 def start():
