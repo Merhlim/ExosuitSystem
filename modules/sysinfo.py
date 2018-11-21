@@ -43,7 +43,8 @@ def wait_for_ip():
         sleep(1)
         ip = get_my_ip()
         if cad.switches[4].value == 1:
-            ip = None
+            return None
+    return ip
 
 
 def show_sysinfo():
@@ -57,9 +58,9 @@ def show_sysinfo():
         cad.lcd.write_custom_bitmap(memory_symbol_index)
         cad.lcd.write(":{}".format(get_my_free_mem()))
         sleep(UPDATE_INTERVAL)
-        #if cad.switches[4].value == 1:
-        #    cad.lcd.clear()
-        #    break
+        if cad.switches[4].value == 1:
+            cad.lcd.clear()
+            break
 
 
 def start():
@@ -73,7 +74,5 @@ def start():
     cad.lcd.set_cursor(0, 1)
     cad.lcd.write("Button 4 to exit")
     ip = wait_for_ip()
-    if ip == None:
-        pass
-    else:
+    if ip != None:
         show_sysinfo()
