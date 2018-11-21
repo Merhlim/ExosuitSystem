@@ -57,9 +57,9 @@ def show_sysinfo():
         cad.lcd.write_custom_bitmap(memory_symbol_index)
         cad.lcd.write(":{}".format(get_my_free_mem()))
         sleep(UPDATE_INTERVAL)
-        if cad.switches[4].value == 1:
-            cad.lcd.clear()
-            break
+        #if cad.switches[4].value == 1:
+        #    cad.lcd.clear()
+        #    break
 
 
 def start():
