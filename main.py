@@ -3,6 +3,7 @@ import hashlib
 import os
 import json
 from time import sleep
+import importlib
 
 class main:
 
@@ -30,7 +31,7 @@ class main:
             self.data = json.loads(datafile.read())
 
     def run_module(self,modulename):
-        module = __import__("modules."+modulename)
+        module = importlib.import_module("modules."+modulename)
         module.main.start()
         self.reset_cad_display()
 
