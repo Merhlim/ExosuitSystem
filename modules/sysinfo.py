@@ -3,7 +3,6 @@ import subprocess
 from time import sleep
 import pifacecad
 
-UPDATE_INTERVAL = 60 * 5  # 5 mins
 GET_IP_CMD = "hostname --all-ip-addresses"
 GET_TEMP_CMD = "/opt/vc/bin/vcgencmd measure_temp"
 TOTAL_MEM_CMD = "free | grep 'Mem' | awk '{print $2}'"
@@ -52,14 +51,14 @@ def wait_for_ip():
 def show_sysinfo():
     while True:
         cad.lcd.clear()
-        cad.lcd.write("IP:{}\n".format(get_my_ip()))
-
+        cad.lcd.set_cursor(0,0)
+        cad.lcd.write("IP:"+get_my_ip())
+        cad.lcd.set_cursor(0,1)
         cad.lcd.write_custom_bitmap(temp_symbol_index)
-        cad.lcd.write(":{}C ".format(get_my_temp()))
+        cad.lcd.write(":"+str(get_my_temp())+"C")
 
         cad.lcd.write_custom_bitmap(memory_symbol_index)
-        cad.lcd.write(":{}".format(get_my_free_mem()))
-        sleep(UPDATE_INTERVAL)
+        cad.lcd.write(":"+get_my_free_mem())
         if cad.switches[4].value == 1:
             cad.lcd.clear()
             break
